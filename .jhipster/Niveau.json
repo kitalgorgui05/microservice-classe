@@ -1,0 +1,35 @@
+{
+  "name": "Niveau",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "15"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "matiere",
+      "otherEntityRelationshipName": "niveau",
+      "relationshipValidateRules": "required",
+      "relationshipName": "matiere",
+      "otherEntityField": "id",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20230203114804",
+  "entityTableName": "niveaus",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "classe1",
+  "applications": "*",
+  "microserviceName": "classe1"
+}

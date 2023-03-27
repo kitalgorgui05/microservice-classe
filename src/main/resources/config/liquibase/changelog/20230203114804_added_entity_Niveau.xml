@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+        <property name="autoIncrement" value="true"/>
+
+    <!--
+        Added the entity Niveau.
+    -->
+    <changeSet id="20230203114804-1" author="jhipster">
+        <createTable tableName="niveaus">
+            <column name="id" type="varchar(32)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nom" type="varchar(15)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_niveaus_nom" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20230203114804-1-relations" author="jhipster">
+
+        <createTable tableName="niveaus_matiere">
+            <column name="matiere_id" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="niveau_id" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="niveau_id, matiere_id" tableName="niveaus_matiere"/>
+
+    </changeSet>
+
+    <changeSet id="20230203114804-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/niveaus.csv"
+                  separator=";"
+                  tableName="niveaus">
+            <column name="id" type="string"/>
+            <column name="nom" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
