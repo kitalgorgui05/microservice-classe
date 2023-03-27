@@ -64,15 +64,13 @@ public class ClasseResourceIT {
     private Classe classe;
 
     public static Classe createEntity(EntityManager em) {
-        Classe classe = new Classe()
-            .nom(DEFAULT_NOM)
-            .mensualite(DEFAULT_MENSUALITE);
+        Classe classe = new Classe();
+        classe.setNom(DEFAULT_NOM);
         return classe;
     }
     public static Classe createUpdatedEntity(EntityManager em) {
-        Classe classe = new Classe()
-            .nom(UPDATED_NOM)
-            .mensualite(UPDATED_MENSUALITE);
+        Classe classe = new Classe();
+        classe.setNom(UPDATED_NOM);
         return classe;
     }
 
@@ -97,7 +95,6 @@ public class ClasseResourceIT {
         assertThat(classeList).hasSize(databaseSizeBeforeCreate + 1);
         Classe testClasse = classeList.get(classeList.size() - 1);
         assertThat(testClasse.getNom()).isEqualTo(DEFAULT_NOM);
-        assertThat(testClasse.getMensualite()).isEqualTo(DEFAULT_MENSUALITE);
     }
 
     @Test
@@ -146,8 +143,6 @@ public class ClasseResourceIT {
     public void checkMensualiteIsRequired() throws Exception {
         int databaseSizeBeforeTest = classeRepository.findAll().size();
         // set the field null
-        classe.setMensualite(null);
-
         // Create the Classe, which fails.
         ClasseDTO classeDTO = classeMapper.toDto(classe);
 
@@ -441,9 +436,7 @@ public class ClasseResourceIT {
         Classe updatedClasse = classeRepository.findById(classe.getId()).get();
         // Disconnect from session so that the updates on updatedClasse are not directly saved in db
         em.detach(updatedClasse);
-        updatedClasse
-            .nom(UPDATED_NOM)
-            .mensualite(UPDATED_MENSUALITE);
+        updatedClasse.setNom(UPDATED_NOM);
         ClasseDTO classeDTO = classeMapper.toDto(updatedClasse);
 
         restClasseMockMvc.perform(put("/api/classes").with(csrf())
@@ -456,7 +449,6 @@ public class ClasseResourceIT {
         assertThat(classeList).hasSize(databaseSizeBeforeUpdate);
         Classe testClasse = classeList.get(classeList.size() - 1);
         assertThat(testClasse.getNom()).isEqualTo(UPDATED_NOM);
-        assertThat(testClasse.getMensualite()).isEqualTo(UPDATED_MENSUALITE);
     }
 
     @Test

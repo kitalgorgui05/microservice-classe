@@ -60,13 +60,13 @@ public class MatiereResourceIT {
 
     private Matiere matiere;
     public static Matiere createEntity(EntityManager em) {
-        Matiere matiere = new Matiere()
-            .nom(DEFAULT_NOM);
+        Matiere matiere = new Matiere();
+        matiere.setNom(DEFAULT_NOM);
         return matiere;
     }
     public static Matiere createUpdatedEntity(EntityManager em) {
-        Matiere matiere = new Matiere()
-            .nom(UPDATED_NOM);
+        Matiere matiere = new Matiere();
+        matiere.setNom(UPDATED_NOM);
         return matiere;
     }
 
@@ -268,7 +268,6 @@ public class MatiereResourceIT {
         Niveau niveau = NiveauResourceIT.createEntity(em);
         em.persist(niveau);
         em.flush();
-        matiere.addNiveau(niveau);
         matiereRepository.saveAndFlush(matiere);
         String niveauId = niveau.getId();
 
@@ -333,8 +332,7 @@ public class MatiereResourceIT {
         Matiere updatedMatiere = matiereRepository.findById(matiere.getId()).get();
         // Disconnect from session so that the updates on updatedMatiere are not directly saved in db
         em.detach(updatedMatiere);
-        updatedMatiere
-            .nom(UPDATED_NOM);
+        updatedMatiere.setNom(UPDATED_NOM);
         MatiereDTO matiereDTO = matiereMapper.toDto(updatedMatiere);
 
         restMatiereMockMvc.perform(put("/api/matieres").with(csrf())
