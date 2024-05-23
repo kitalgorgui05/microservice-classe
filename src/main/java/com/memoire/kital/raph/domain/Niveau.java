@@ -1,7 +1,7 @@
 package com.memoire.kital.raph.domain;
 
 import com.memoire.kital.raph.utils.SizeMaper;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,6 +16,11 @@ import java.util.Set;
 /**
  * A Niveau.
  */
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "niveaus")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -75,13 +80,13 @@ public class Niveau implements Serializable {
 
     public Niveau addMatiere(Matiere matiere) {
         this.matieres.add(matiere);
-        matiere.getNiveaus().add(this);
+       // matiere.getNiveaus().add(this);
         return this;
     }
 
     public Niveau removeMatiere(Matiere matiere) {
         this.matieres.remove(matiere);
-        matiere.getNiveaus().remove(this);
+        //matiere.getNiveaus().remove(this);
         return this;
     }
 

@@ -10,7 +10,7 @@ import org.mapstruct.*;
 public interface MatiereMapper extends EntityMapper<MatiereDTO, Matiere> {
 
 
-    @Mapping(target = "niveaus", ignore = true)
+    //@Mapping(target = "niveaus", ignore = true)
     //@Mapping(target = "removeNiveau", ignore = true)
     Matiere toEntity(MatiereDTO matiereDTO);
 
